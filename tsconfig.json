@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es6", "dom", "es2015.promise"],
+    "allowJs": false,
+    "checkJs": false,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "removeComments": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "esModuleInterop": true
+  },
+  "exclude": ["dist", "*.config.js"]
+}

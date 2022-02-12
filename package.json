@@ -1,6 +1,6 @@
 {
   "name": "@rojer/katex-mini",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "katex for miniprogram",
   "main": "dist/index.js",
   "miniprogram": "dist",

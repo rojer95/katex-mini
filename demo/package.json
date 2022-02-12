@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@rojer/katex-mini": "^1.0.0"
+    "@rojer/katex-mini": "^1.0.3"
   }
 }

@@ -1,8 +1,12 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 var config = {
   entry: "./src/index.ts",
+  optimization: {
+    minimize: true,
+  },
   module: {
     rules: [
       {

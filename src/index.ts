@@ -1,14 +1,13 @@
-import katex from "katex";
-import "./index.less";
+import { Interpreter } from "eval5";
 
 // hyphenate and escape adapted from Facebook's React under Apache 2 license
 
 const uppercase = /([A-Z])/g;
-const hyphenate = function (str: string): string {
+const hyphenate = function (str) {
   return str.replace(uppercase, "-$1").toLowerCase();
 };
 
-const ESCAPE_LOOKUP: Record<string, string> = {
+const ESCAPE_LOOKUP = {
   "&": "&amp;",
   ">": "&gt;",
   "<": "&lt;",
@@ -20,11 +19,11 @@ const ESCAPE_REGEX = /[&><"']/g;
 /**
  * Escapes text to prevent scripting attacks.
  */
-function escape(text: any): string {
+function escape(text) {
   return String(text).replace(ESCAPE_REGEX, (match) => ESCAPE_LOOKUP[match]);
 }
 
-function svg2base64(svg: string): string {
+const svg2base64 = (svg) => {
   const txt = svg
     .replace(
       "<svg",
@@ -59,9 +58,9 @@ function svg2base64(svg: string): string {
   //  .replace('=', '%3D')
 
   return "data:image/svg+xml," + txt;
-}
+};
 
-function katex2richnode(type: string, dom: any, children: any[]): any {
+const katex2richnode = (type, dom, children) => {
   let needsSpan = false;
   if (dom.classes && dom.classes.length > 0) needsSpan = true;
 
@@ -85,7 +84,7 @@ function katex2richnode(type: string, dom: any, children: any[]): any {
     needsSpan = true;
   }
 
-  const attrs: any = {};
+  const attrs = {};
   for (const attr in dom.attributes) {
     if (dom.attributes.hasOwnProperty(attr)) {
       attrs[attr] = escape(dom.attributes[attr]);
@@ -139,27 +138,30 @@ function katex2richnode(type: string, dom: any, children: any[]): any {
   }
 
   return null;
-}
+};
 
 /**
  * Create an HTML className based on a list of classes. In addition to joining
  * with spaces, we also remove empty classes.
  */
-
-const createClass = function (classes: string[]): string {
-  return classes?.filter((cls) => cls).join(" ");
+export const createClass = function (classes) {
+  return classes?.filter((cls) => cls).join(" ") ?? "";
 };
 
-const toMarkup = (doms: any[]): any[] => {
+const toMarkup = (doms) => {
   return doms
-    .map((dom: any) => {
-      let domType: string = "";
-      if (dom instanceof katex.__domTree.Span) domType = "span";
-      if (dom instanceof katex.__domTree.SvgNode) domType = "svg";
-      if (dom instanceof katex.__domTree.SymbolNode) domType = "text";
+    .map((dom) => {
+      let type;
+      if (dom instanceof rootContext?.katex?.__domTree.Span) type = "span";
+      if (dom instanceof rootContext?.katex?.__domTree.Anchor) type = "anchor";
+      if (dom instanceof rootContext?.katex?.__domTree.LineNode) type = "line";
+      if (dom instanceof rootContext?.katex?.__domTree.PathNode) type = "path";
+      if (dom instanceof rootContext?.katex?.__domTree.SvgNode) type = "svg";
+      if (dom instanceof rootContext?.katex?.__domTree.SymbolNode)
+        type = "text";
 
       return katex2richnode(
-        domType,
+        type,
         dom,
         dom.children && dom.children.length > 0 ? toMarkup(dom.children) : []
       );
@@ -167,12 +169,31 @@ const toMarkup = (doms: any[]): any[] => {
     .filter((i) => !!i);
 };
 
-export default (latex: string): any[] => {
+const rootContext: any = {
+  console,
+  setTimeout,
+  clearTimeout,
+  setInterval,
+  clearInterval,
+};
+
+export const loadKatex = (code) => {
   try {
-    const tree = katex.__renderToHTMLTree(latex, {
+    var interpreter = new Interpreter(rootContext, {
+      rootContext,
+    });
+    interpreter.evaluate(code);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default (latex, option = {}) => {
+  try {
+    const tree = rootContext?.katex?.__renderToDomTree(latex, {
+      ...option,
       output: "html",
     });
-
     return toMarkup([tree]);
   } catch (error: any) {
     return [

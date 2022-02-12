@@ -1,6 +1,6 @@
 {
   "name": "@rojer/katex-mini",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "katex for miniprogram",
   "main": "dist/index.js",
   "miniprogram": "dist",
@@ -26,7 +26,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "katex": "^0.15.2"
+    "eval5": "^1.4.7"
   },
   "repository": {
     "type": "git",

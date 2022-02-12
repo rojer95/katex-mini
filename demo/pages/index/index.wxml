@@ -2,5 +2,5 @@
 <view class="container">
   <rich-text nodes="{{nodes}}"></rich-text>
   <textarea value="{{latex}}" bindinput="onInput" maxlength="1400"></textarea>
-  <button bindtap="render">渲染</button>
+  <button bindtap="renderLatex">渲染</button>
 </view>

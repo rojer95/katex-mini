@@ -1,4 +1,5 @@
 import { Interpreter } from "eval5";
+import "./index.less";
 
 // hyphenate and escape adapted from Facebook's React under Apache 2 license
 
@@ -137,6 +138,8 @@ const katex2richnode = (type, dom, children) => {
     };
   }
 
+  if (Array.isArray(children) && children.length > 0) return children;
+
   return null;
 };
 
@@ -166,6 +169,14 @@ const toMarkup = (doms) => {
         dom.children && dom.children.length > 0 ? toMarkup(dom.children) : []
       );
     })
+    .reduce((pre, item) => {
+      if (Array.isArray(item)) {
+        pre.push(...item);
+      } else {
+        pre.push(item);
+      }
+      return pre;
+    }, [])
     .filter((i) => !!i);
 };
 

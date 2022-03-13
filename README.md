@@ -10,7 +10,11 @@
 
 > 由于 katex 库过大，引入`eval5`模块对象 katex 模块进行在线加载，从而减小小程序的包体大小
 
-> 当然如果你觉得占用体积还是太大，你也可以把 katex-mini 提供的的 parse 写成一个在线 api，然后在线请求获取转化好的 nodes，然后直接在小程序的 RichText 组件中展示（但是 css 还是要导入到项目中的）
+## 在线 API
+
+> 如果你觉得占用体积还是太大，你也可以使用已经写好的 api 来进行解析，然后将结果放到 rich-text 组件里面
+
+具体使用方法：https://github.com/rojer95/katex-mini-api
 
 ## Demo
 

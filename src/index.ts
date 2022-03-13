@@ -188,14 +188,20 @@ const rootContext: any = {
   clearInterval,
 };
 
-export const loadKatex = (code) => {
-  try {
-    var interpreter = new Interpreter(rootContext, {
-      rootContext,
-    });
-    interpreter.evaluate(code);
-  } catch (error) {
-    console.log(error);
+export const loadKatex = (codeOrkatex) => {
+  if (typeof codeOrkatex === "string") {
+    try {
+      var interpreter = new Interpreter(rootContext, {
+        rootContext,
+      });
+      interpreter.evaluate(codeOrkatex);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  if (typeof codeOrkatex === "object") {
+    rootContext.katex = codeOrkatex;
   }
 };
 

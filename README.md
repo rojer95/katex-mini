@@ -2,64 +2,43 @@
 
 基于 KaTeX 构建的小程序原生 LaTeX 渲染组件（不依赖服务端渲染）
 
+## 效果预览图
+
+![效果预览图](./assets/preview.png)
+
 ## 实现原理
 
 基于 katex 库，解析 latex 公式生成虚拟 dom 树对象，将 dom 对象翻译成小程序的 rich-text 支持的 nodes 由小程序渲染
 
-> 依赖微信小程序的 RichText 组件渲染，请注意小程序基础库 1.4.0 开始支持，低版本需做兼容处理。
+### 局限性
 
-> 由于 katex 库过大，引入`eval5`模块对象 katex 模块进行在线加载，从而减小小程序的包体大小
+- 依赖微信小程序的 `rich-text` 组件渲染，请注意小程序基础库 1.4.0 开始支持
+- 由于 katex 库过大会大量占用小程序包体大小。
 
-## 在线 API
+### 解决方式
 
-> 如果你觉得占用体积还是太大，你也可以使用已经写好的 api 来进行解析，然后将结果放到 rich-text 组件里面
+- 引入`eval5`模块对象 katex 模块进行在线加载，从而减小包体大小。（已实现）
+- 如果你希望再小一点，可以将解析模块放在服务端，提供解析接口，再将结果展示在 rich-text 中（已实现）`虽然这里使用了服务端，但是这里是产出json格式的nodes而非图片，相对于将latex转为图片的方案也好很多`
 
-具体使用方法：https://github.com/rojer95/katex-mini-api
+## 如何使用？
 
-## Demo
+### 在原生小程序项目中直接使用
 
-### 在线 Demo
-
-![在线 Demo](./assets/qrcode.jpg)
-
-### taro 版本 Demo
-
-https://github.com/rojer95/katex-mini-taro-demo
-
-## 运行 demo
-
-1. clone 项目
-
-```bash
-git clone https://github.com/rojer95/katex-weapp.git
-```
-
-2. 在 Demo 项目安装依赖
-
-```bash
-cd ./katex-weapp/demo
-npm install
-```
-
-3. 用小程序开发者工具打开 demo 目录，在小程序开发者工具中执行“工具 - 构建 npm”
-
-## 在原生小程序项目中直接使用
-
-1. 在小程序中安装依赖
+#### 1. 在小程序中安装依赖
 
 ```bash
 npm install @rojer/katex-mini
 ```
 
-2. 在小程序开发者工具中 - 工具 - 构建 npm，执行后会看到生成的`miniprogram_npm`目录
+#### 2. 在小程序开发者工具中 - 工具 - 构建 npm，执行后会看到生成的`miniprogram_npm`目录
 
-3. 在 `app.wxss` 加载 katex 的内置 css 样式
+#### 3. 在 `app.wxss` 加载 katex 的内置 css 样式
 
 ```less
 @import "./miniprogram_npm/@rojer/katex-mini/index.wxss";
 ```
 
-4. 在 app.js 的 onLaunch 中加载 katex
+#### 4. 在 app.js 的 onLaunch 中加载 katex
 
 ```js
 // app.js
@@ -78,7 +57,7 @@ App({
 });
 ```
 
-5. 在小程序中解析 latex
+#### 5. 在小程序中解析 latex
 
 ```js
 // index.js
@@ -105,7 +84,7 @@ Page({
 });
 ```
 
-6. 在页面中展示
+#### 6. 在页面中展示
 
 ```html
 <!--index.wxml-->
@@ -116,6 +95,65 @@ Page({
 </view>
 ```
 
-## 效果预览图
+### 在 Taro 中直接使用
 
-![示例预览图](./assets/demo-static.jpg)
+#### 1、clone 项目
+
+```bash
+git clone https://github.com/rojer95/katex-mini-taro-demo.git
+```
+
+#### 2、项目根目录安装依赖
+
+```bash
+yarn
+```
+
+#### 3、编译
+
+```bash
+yarn dev:weapp
+```
+
+#### 4、编译后:
+
+- 打开小程序开发者工具, 打开 dist 目录
+- 可以修改文本框内容 Latex 公式，点击渲染查看效果
+
+### 使用 API 调用方式
+
+#### 1、导入 wxss
+
+```less
+// 在app.wxss中
+@import "katex-mini.wxss";
+```
+
+> `katex-mini.wxss` 的下载地址： [https://cdn.jsdelivr.net/npm/@rojer/katex-mini/dist/index.wxss](https://cdn.jsdelivr.net/npm/@rojer/katex-mini/dist/index.wxss)
+
+#### 2、请求接口
+
+```javascript
+wx.request({
+  url: "https://katex-mini-api.vercel.app",
+  data: {
+    latex: "a=b+c",
+  },
+  dataType: "json",
+  success(res) {
+    this.setData({
+      nodes: res.data,
+    });
+  },
+});
+```
+
+#### 3、放到 RichText 组件里
+
+```html
+<rich-text nodes="{{ nodes }}" />
+```
+
+### 写在最后
+
+> 如果能帮到你，希望能给我一个[Star](https://github.com/rojer95/katex-mini)。感谢！

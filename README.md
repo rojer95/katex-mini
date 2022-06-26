@@ -17,7 +17,7 @@
 
 ### 解决方式
 
-- 引入`eval5`模块对象 katex 模块进行在线加载，从而减小包体大小。（已实现）
+- ~~引入`eval5`模块对象 katex 模块进行在线加载，从而减小包体大小。（2022 年 7 月 6 日起小程序不允许使用eval5）~~
 - 如果你希望再小一点，可以将解析模块放在服务端，提供解析接口，再将结果展示在 rich-text 中（已实现）`虽然这里使用了服务端，但是这里是产出json格式的nodes而非图片，相对于将latex转为图片的方案也好很多`
 
 ## 如何使用？
@@ -38,26 +38,7 @@ npm install @rojer/katex-mini
 @import "./miniprogram_npm/@rojer/katex-mini/index.wxss";
 ```
 
-#### 4. 在 app.js 的 onLaunch 中加载 katex
-
-```js
-// app.js
-import { loadKatex } from "@rojer/katex-mini";
-App({
-  onLaunch() {
-    // 通过动态方式加载katex代码，节省小程序包体大小
-    wx.request({
-      url: "https://lib.baomitu.com/KaTeX/latest/katex.min.js",
-      success: ({ data: code }) => {
-        loadKatex(code);
-        wx.katex = true;
-      },
-    });
-  },
-});
-```
-
-#### 5. 在小程序中解析 latex
+#### 4. 在小程序中解析 latex
 
 ```js
 // index.js
@@ -84,7 +65,7 @@ Page({
 });
 ```
 
-#### 6. 在页面中展示
+#### 5. 在页面中展示
 
 ```html
 <!--index.wxml-->
@@ -121,6 +102,8 @@ yarn dev:weapp
 - 可以修改文本框内容 Latex 公式，点击渲染查看效果
 
 ### 使用 API 调用方式
+
+> API 的 Demo 源码: [https://github.com/rojer95/katex-mini-api](https://github.com/rojer95/katex-mini-api)
 
 #### 1、导入 wxss
 

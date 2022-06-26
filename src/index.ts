@@ -1,4 +1,4 @@
-import { Interpreter } from "eval5";
+import katex from "katex";
 import "./index.less";
 
 // hyphenate and escape adapted from Facebook's React under Apache 2 license
@@ -155,13 +155,12 @@ const toMarkup = (doms) => {
   return doms
     .map((dom) => {
       let type;
-      if (dom instanceof rootContext?.katex?.__domTree.Span) type = "span";
-      if (dom instanceof rootContext?.katex?.__domTree.Anchor) type = "anchor";
-      if (dom instanceof rootContext?.katex?.__domTree.LineNode) type = "line";
-      if (dom instanceof rootContext?.katex?.__domTree.PathNode) type = "path";
-      if (dom instanceof rootContext?.katex?.__domTree.SvgNode) type = "svg";
-      if (dom instanceof rootContext?.katex?.__domTree.SymbolNode)
-        type = "text";
+      if (dom instanceof katex.__domTree.Span) type = "span";
+      if (dom instanceof katex.__domTree.Anchor) type = "anchor";
+      if (dom instanceof katex.__domTree.LineNode) type = "line";
+      if (dom instanceof katex.__domTree.PathNode) type = "path";
+      if (dom instanceof katex.__domTree.SvgNode) type = "svg";
+      if (dom instanceof katex.__domTree.SymbolNode) type = "text";
 
       return katex2richnode(
         type,
@@ -180,34 +179,9 @@ const toMarkup = (doms) => {
     .filter((i) => !!i);
 };
 
-const rootContext: any = {
-  console,
-  setTimeout,
-  clearTimeout,
-  setInterval,
-  clearInterval,
-};
-
-export const loadKatex = (codeOrkatex) => {
-  if (typeof codeOrkatex === "string") {
-    try {
-      var interpreter = new Interpreter(rootContext, {
-        rootContext,
-      });
-      interpreter.evaluate(codeOrkatex);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  if (typeof codeOrkatex === "object") {
-    rootContext.katex = codeOrkatex;
-  }
-};
-
 export default (latex, option = {}) => {
   try {
-    const tree = rootContext?.katex?.__renderToDomTree(latex, {
+    const tree = katex.__renderToDomTree(latex, {
       ...option,
       output: "html",
     });

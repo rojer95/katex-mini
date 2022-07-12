@@ -1,6 +1,16 @@
 import katex from "katex";
 import "./index.less";
 
+type Node = any; // TODO
+type NodeType = "text" | "span" | "svg" | "anchor" | "line" | "path";
+type RichNode = {
+  type?: string;
+  name?: string;
+  children?: RichNode[];
+  attrs?: any;
+  text?: string;
+};
+
 // hyphenate and escape adapted from Facebook's React under Apache 2 license
 
 const uppercase = /([A-Z])/g;
@@ -24,19 +34,16 @@ function escape(text) {
   return String(text).replace(ESCAPE_REGEX, (match) => ESCAPE_LOOKUP[match]);
 }
 
-const svg2base64 = (svg, color="") => {
-  const txt = encodeURIComponent(svg
-    .replace(
-      "<svg",
-      ~svg.indexOf("xmlns") ? "<svg" : '<svg xmlns="http://www.w3.org/2000/svg"'
-    )
-    .replace("<svg", color == "" ? "<svg" : `<svg fill='${color}' `)
-    .replace(/\s+/g, " "));
-
+const svg2base64 = (svg: string) => {
+  const txt = encodeURIComponent(svg.replace(/\s+/g, " "));
   return "data:image/svg+xml," + txt;
 };
 
-const katex2richnode = (type, color="", dom, children) => {
+const katex2richnode = (
+  type: NodeType,
+  dom: Node,
+  children: RichNode[]
+): RichNode | RichNode[] | null => {
   let needsSpan = false;
   if (dom.classes && dom.classes.length > 0) needsSpan = true;
 
@@ -107,7 +114,7 @@ const katex2richnode = (type, color="", dom, children) => {
     return {
       name: "img",
       attrs: {
-        src: svg2base64(svg, color),
+        src: svg2base64(svg),
         class: "katex-svg",
       },
     };
@@ -126,27 +133,30 @@ export const createClass = function (classes) {
   return classes?.filter((cls) => cls).join(" ") ?? "";
 };
 
-const toMarkup = (doms, color="") => {
+const toMarkup = (doms, color?: string) => {
   return doms
     .map((dom) => {
-      if(dom.hasOwnProperty("style")){
-        color = dom.style.hasOwnProperty("color") ? dom.style.color : "";
-      }
+      let domColor: string | undefined = color;
+      if (dom?.style?.color) domColor = dom.style.color;
 
-      let type;
+      let type: NodeType | undefined = undefined;
       if (dom instanceof katex.__domTree.Span) type = "span";
       if (dom instanceof katex.__domTree.Anchor) type = "anchor";
       if (dom instanceof katex.__domTree.LineNode) type = "line";
       if (dom instanceof katex.__domTree.PathNode) type = "path";
-      if (dom instanceof katex.__domTree.SvgNode) type = "svg";
+      if (dom instanceof katex.__domTree.SvgNode) {
+        type = "svg";
+        if (domColor) dom.attributes.fill = domColor;
+      }
       if (dom instanceof katex.__domTree.SymbolNode) type = "text";
 
-      return katex2richnode(
-        type,
-        color,
-        dom,
-        dom.children && dom.children.length > 0 ? toMarkup(dom.children, color) : []
-      );
+      if (!type) return null;
+
+      const children =
+        dom.children && dom.children.length > 0
+          ? toMarkup(dom.children, domColor)
+          : [];
+      return katex2richnode(type, dom, children);
     })
     .reduce((pre, item) => {
       if (Array.isArray(item)) {

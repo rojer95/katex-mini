@@ -24,44 +24,19 @@ function escape(text) {
   return String(text).replace(ESCAPE_REGEX, (match) => ESCAPE_LOOKUP[match]);
 }
 
-const svg2base64 = (svg) => {
-  const txt = svg
+const svg2base64 = (svg, color="") => {
+  const txt = encodeURIComponent(svg
     .replace(
       "<svg",
       ~svg.indexOf("xmlns") ? "<svg" : '<svg xmlns="http://www.w3.org/2000/svg"'
     )
-
-    //
-    //   Encode (may need a few extra replacements)
-    //
-    .replace(/"/g, "'")
-    .replace(/%/g, "%25")
-    .replace(/#/g, "%23")
-    .replace(/{/g, "%7B")
-    .replace(/}/g, "%7D")
-    .replace(/</g, "%3C")
-    .replace(/>/g, "%3E")
-
-    .replace(/\s+/g, " ");
-  //
-  //    The maybe list (add on documented fail)
-  //
-  //  .replace(/&/g, '%26')
-  //  .replace('|', '%7C')
-  //  .replace('[', '%5B')
-  //  .replace(']', '%5D')
-  //  .replace('^', '%5E')
-  //  .replace('`', '%60')
-  //  .replace(';', '%3B')
-  //  .replace('?', '%3F')
-  //  .replace(':', '%3A')
-  //  .replace('@', '%40')
-  //  .replace('=', '%3D')
+    .replace("<svg", color == "" ? "<svg" : `<svg fill='${color}' `)
+    .replace(/\s+/g, " "));
 
   return "data:image/svg+xml," + txt;
 };
 
-const katex2richnode = (type, dom, children) => {
+const katex2richnode = (type, color="", dom, children) => {
   let needsSpan = false;
   if (dom.classes && dom.classes.length > 0) needsSpan = true;
 
@@ -132,7 +107,7 @@ const katex2richnode = (type, dom, children) => {
     return {
       name: "img",
       attrs: {
-        src: svg2base64(svg),
+        src: svg2base64(svg, color),
         class: "katex-svg",
       },
     };
@@ -151,9 +126,13 @@ export const createClass = function (classes) {
   return classes?.filter((cls) => cls).join(" ") ?? "";
 };
 
-const toMarkup = (doms) => {
+const toMarkup = (doms, color="") => {
   return doms
     .map((dom) => {
+      if(dom.hasOwnProperty("style")){
+        color = dom.style.hasOwnProperty("color") ? dom.style.color : "";
+      }
+
       let type;
       if (dom instanceof katex.__domTree.Span) type = "span";
       if (dom instanceof katex.__domTree.Anchor) type = "anchor";
@@ -164,8 +143,9 @@ const toMarkup = (doms) => {
 
       return katex2richnode(
         type,
+        color,
         dom,
-        dom.children && dom.children.length > 0 ? toMarkup(dom.children) : []
+        dom.children && dom.children.length > 0 ? toMarkup(dom.children, color) : []
       );
     })
     .reduce((pre, item) => {

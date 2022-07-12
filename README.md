@@ -136,6 +136,26 @@ wx.request({
 ```html
 <rich-text nodes="{{ nodes }}" />
 ```
+### 贡献者 ✨
+
+<table>
+<tr>
+    <td align="center">
+      <a href="https://github.com/rojer95">
+        <img src="https://avatars.githubusercontent.com/u/20662049?v=4?s=100" width="100px;" alt=""/>
+        <br />
+        <sub><b>rojer</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/had0ngzhu">
+        <img src="https://avatars.githubusercontent.com/u/67865626?v=4?s=100" width="100px;" alt=""/>
+        <br />
+        <sub><b>had0ngzhu</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ### 写在最后
 

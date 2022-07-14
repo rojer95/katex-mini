@@ -120,8 +120,6 @@ const katex2richnode = (
     };
   }
 
-  if (Array.isArray(children) && children.length > 0) return children;
-
   return null;
 };
 
@@ -150,12 +148,11 @@ const toMarkup = (doms, color?: string) => {
       }
       if (dom instanceof katex.__domTree.SymbolNode) type = "text";
 
-      if (!type) return null;
-
       const children =
         dom.children && dom.children.length > 0
           ? toMarkup(dom.children, domColor)
           : [];
+      if (!type) return children;
       return katex2richnode(type, dom, children);
     })
     .reduce((pre, item) => {

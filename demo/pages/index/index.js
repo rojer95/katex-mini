@@ -4,14 +4,12 @@ import parse from "@rojer/katex-mini";
 Page({
   data: {
     nodes: [],
-    latex: `
-\\begin{matrix} 0 & 1 \\\\ 1 & 0 \\end{matrix}\\quad
+    latex: `\\begin{matrix} 0 & 1 \\\\ 1 & 0 \\end{matrix}\\quad
 \\begin{pmatrix} 0 & -i \\\\ i & 0 \\end{pmatrix}\\\\
 \\begin{bmatrix} 0 & -1 \\\\ 1 & 0 \\end{bmatrix}\\quad
 \\begin{Bmatrix} 1 & 0 \\\\ 0 & -1 \\end{Bmatrix}\\\\
 \\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}\\quad
-\\begin{Vmatrix} i & 0 \\\\ 0 & -i \\end{Vmatrix}!@#!@#!23//asda
-      `,
+\\begin{Vmatrix} i & 0 \\\\ 0 & -i \\end{Vmatrix}`,
   },
 
   onShow() {
@@ -31,6 +29,7 @@ Page({
         nodes,
       });
     } catch (error) {
+      console.log(error);
       this.setData({
         nodes: [
           {

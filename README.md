@@ -58,8 +58,14 @@ Page({
   },
 
   renderLatex: function () {
+    const katexOption = {
+      displayMode: true,
+    }; // 参考 katex 的配置
     this.setData({
-      nodes: parse(this.data.latex),
+      nodes: parse(this.data.latex, {
+        throwError: true, // 为true时，解析失败会抛出错误，否则会直接把错误信息解析为nodes结构展示
+        ...katexOption,
+      }),
     });
   },
 });

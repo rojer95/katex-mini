@@ -24,7 +24,10 @@ Page({
 
   renderLatex: function () {
     try {
-      const nodes = parse(this.data.latex, { throwError: true });
+      const nodes = parse(this.data.latex, {
+        throwError: true,
+        displayMode: true,
+      });
       this.setData({
         nodes,
       });

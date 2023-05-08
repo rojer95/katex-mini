@@ -10,14 +10,12 @@ Page({
 \\begin{bmatrix} 0 & -1 \\\\ 1 & 0 \\end{bmatrix}\\quad
 \\begin{Bmatrix} 1 & 0 \\\\ 0 & -1 \\end{Bmatrix}\\\\
 \\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}\\quad
-\\begin{Vmatrix} i & 0 \\\\ 0 & -i \\end{Vmatrix}
+\\begin{Vmatrix} i & 0 \\\\ 0 & -i \\end{Vmatrix}!@#!@#!23//asda
       `,
   },
 
   onShow() {
-    setTimeout(() => {
-      if (wx.katex) this.renderLatex();
-    }, 100);
+    this.renderLatex();
   },
 
   onInput: function (e) {
@@ -27,8 +25,28 @@ Page({
   },
 
   renderLatex: function () {
-    this.setData({
-      nodes: parse(this.data.latex),
-    });
+    try {
+      const nodes = parse(this.data.latex, { throwError: true });
+      this.setData({
+        nodes,
+      });
+    } catch (error) {
+      this.setData({
+        nodes: [
+          {
+            name: "div",
+            attrs: {
+              style: "color: red;",
+            },
+            children: [
+              {
+                type: "text",
+                text: "渲染错误",
+              },
+            ],
+          },
+        ],
+      });
+    }
   },
 });

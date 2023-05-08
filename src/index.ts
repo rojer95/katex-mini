@@ -166,14 +166,16 @@ const toMarkup = (doms, color?: string) => {
     .filter((i) => !!i);
 };
 
-export default (latex, option = {}) => {
+export default (latex, option: any = {}) => {
+  const { throwError, ...restOption } = option || {};
   try {
     const tree = katex.__renderToDomTree(latex, {
-      ...option,
+      ...restOption,
       output: "html",
     });
     return toMarkup([tree]);
   } catch (error: any) {
+    if (throwError) throw error;
     return [
       {
         name: "span",

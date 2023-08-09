@@ -22,7 +22,7 @@
 
 ## 有没有完整题目编排方案？
 
-- DSlate 富文本编辑器：[DEMO](https://rojer95.github.io/dslate/getting-started/math)
+- DSlate 富文本编辑器：支持 Latex、图文、混合编排的编辑器，可以直接导出小程序 RichNode 支持格式的 JSON 数据。[DEMO](https://rojer95.github.io/dslate/getting-started/math)
 
 ## 如何使用？
 

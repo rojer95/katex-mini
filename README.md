@@ -20,6 +20,10 @@
 - 【推荐】使用小程序分包：[小程序分包文档](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html)
 - 【不推荐】如果你希望再小一点，可以将解析模块放在服务端，提供解析接口，再将结果展示在 rich-text 中（已实现）`虽然这里使用了服务端，但是这里是产出json格式的nodes而非图片，相对于将latex转为图片的方案也好很多`
 
+## 有没有完整题目编排方案？
+
+- DSlate 富文本编辑器：[DEMO](https://rojer95.github.io/dslate/getting-started/math)
+
 ## 如何使用？
 
 ### 在原生小程序项目中直接使用

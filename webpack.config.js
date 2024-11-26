@@ -7,6 +7,9 @@ var config = {
   optimization: {
     minimize: true,
   },
+  externals: {
+    katex: "katex",
+  },
   module: {
     rules: [
       {

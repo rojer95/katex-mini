@@ -37,6 +37,15 @@
 npm install @rojer/katex-mini
 ```
 
+#### 安装 katex （@rojer/katex-mini@1.2.0 之后需要手动安装）
+
+<font color="red">自 1.2.0 版本起，`@rojer/katex-mini`不再包含`katex`，因此你需要自行安
+装`katex`</font>
+
+```bash
+npm install katex
+```
+
 #### 2. 在小程序开发者工具中 - 工具 - 构建 npm，执行后会看到生成的`miniprogram_npm`目录
 
 #### 3. 在 `app.wxss` 加载 katex 的内置 css 样式

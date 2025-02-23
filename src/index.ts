@@ -1,8 +1,8 @@
 import katex from "katex";
-import "./index.less";
+import "./katex.scss";
 
 type Node = any; // TODO
-type NodeType = "text" | "span" | "svg" | "anchor" | "line" | "path";
+type NodeType = "text" | "span" | "svg" | "anchor" | "line" | "path" | "img";
 type RichNode = {
   type?: string;
   name?: string;
@@ -79,6 +79,17 @@ const katex2richnode = (
       name: "span",
       attrs: {
         class: classes + " katex-span",
+        style: styles,
+      },
+      children,
+    };
+  }
+
+  if (type === "img") {
+    return {
+      name: "img",
+      attrs: {
+        class: classes + " katex-img",
         style: styles,
       },
       children,

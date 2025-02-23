@@ -1,6 +1,6 @@
 {
   "name": "@rojer/katex-mini",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "katex for miniprogram",
   "main": "dist/index.js",
   "miniprogram": "dist",
@@ -32,11 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rojer95/katex-mini.git"
+    "url": "git+https://github.com/rojer95/katex-mini.git"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "files": [
+    "dist"
+  ],
   "packageManager": "yarn@1.22.22"
 }

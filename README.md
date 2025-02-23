@@ -25,7 +25,9 @@
 <b>DSlate 富文本编辑器</b> ：支持 Latex、图文、混合编排的编辑器，可以直接导出小程序 rich-text 支持格式的 JSON 数据。[DEMO](https://rojer95.github.io/dslate/getting-started/math)
 
 <b>预览图</b>：
-![效果预览图](./assets/dslate.png)
+| 编辑器 | 小程序效果 |
+| -------- | -------- |
+| ![效果预览图](./assets/dslate.png) | ![效果预览图](./assets/dslate-preview.png) |
 
 ## 如何使用？
 

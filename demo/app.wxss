@@ -2,11 +2,10 @@
 @import "./miniprogram_npm/@rojer/katex-mini/index.wxss";
 
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
+  justify-content: flex-start;
+  padding: 20rpx;
   box-sizing: border-box;
 }

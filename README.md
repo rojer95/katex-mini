@@ -39,8 +39,7 @@ npm install @rojer/katex-mini
 
 #### 安装 katex （@rojer/katex-mini@1.2.0 之后需要手动安装）
 
-<font color="red">自 1.2.0 版本起，`@rojer/katex-mini`不再包含`katex`，因此你需要自行安
-装`katex`</font>
+> ⚠️ 自 1.2.0 版本起，`@rojer/katex-mini`不再包含`katex`，因此你需要自行安装`katex`
 
 ```bash
 npm install katex

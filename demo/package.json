@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@rojer/katex-mini": "^1.2.1",
+    "@rojer/katex-mini": "../",
     "katex": "^0.16.11"
   }
 }

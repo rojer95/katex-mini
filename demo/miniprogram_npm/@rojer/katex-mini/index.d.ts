@@ -1,4 +1,4 @@
 import "./katex.scss";
-export declare const createClass: (classes: any) => any;
-declare const _default: (latex: any, option?: any) => any;
-export default _default;
+export { parseLatex as default } from "./core";
+export * from "./core";
+export * from "./auto-render";

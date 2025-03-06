@@ -20,6 +20,35 @@
 - 【推荐】使用小程序分包：[小程序分包文档](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html)
 - 【不推荐】如果你希望再小一点，可以将解析模块放在服务端，提供解析接口，再将结果展示在 rich-text 中（已实现）`虽然这里使用了服务端，但是这里是产出json格式的nodes而非图片，相对于将latex转为图片的方案也好很多`
 
+## 【试验性】1.3.0 起支持 Katex 中类似 Auto-render 渲染方式
+
+自`1.3.0`起，支持呈现文本中的所有数学，用法如下：
+
+```ts
+import { renderMathInText } from "@rojer/katex-mini";
+const innerMathText =
+  "这是一个行内公式 $ f(x) = sum_{n=0}^{infty} \\frac{f^{(n)}(a)}{n!} (x - a)^n $ ，这是一个行间的公式 $$ \\int_a^b f(x) , dx = F(b) - F(a) $$ \n这是新起一行的文字";
+
+const nodes = renderMathInText(innerMathText, {
+  delimiters: [
+    { left: "$$", right: "$$", display: true },
+    { left: "$", right: "$", display: false },
+  ],
+});
+
+// 将渲染得到的nodes交给小程序RichText组件渲染
+this.setData({
+  nodes,
+});
+```
+
+> `renderMathInText` 的 参数参考： https://katex.org/docs/autorender#api
+
+<b>效果预览图</b>：
+| 小程序效果 |
+| -------- |
+| ![效果预览图](./assets/auto-render-preview.png) |
+
 ## 有没有完整题目编排方案？
 
 <b>DSlate 富文本编辑器</b> ：支持 Latex、图文、混合编排的编辑器，可以直接导出小程序 rich-text 支持格式的 JSON 数据。[DEMO](https://rojer95.github.io/dslate/getting-started/math)

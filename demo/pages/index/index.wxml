@@ -1,11 +1,20 @@
 <!--index.wxml-->
 <view class="container">
-  <view style="font-weight: 800;">katex渲染公式：</view>
+  <view style="font-weight: 800;">单独渲染公式：</view>
   <rich-text nodes="{{nodes}}"></rich-text>
   <textarea value="{{latex}}" bindinput="onInput" maxlength="1400"></textarea>
   <view style="height: 1em;"></view>
   <button bindtap="renderLatex">渲染</button>
   <view style="width: 100%; border-bottom: 1rpx solid #9a9a9a;margin: 1em 0px;"></view>
+
+  <view style="font-weight: 800;">长段落模式(AutoRender)：</view>
+  <rich-text nodes="{{latexAutoRenderNodes}}"></rich-text>
+  <textarea value="{{latexAutoRender}}" bindinput="onInputAutoRender" maxlength="1400"></textarea>
+  <view style="height: 1em;"></view>
+  <button bindtap="renderLatex">渲染</button>
+  <view style="width: 100%; border-bottom: 1rpx solid #9a9a9a;margin: 1em 0px;"></view>
+
+
   <view style="font-weight: 800;">结合DSlate渲染完整题目</view>
   <view style="height: 1em;"></view>
   <view style="border: 1rpx dashed #9a9a9a;padding: 1em;"><rich-text nodes="{{dslate}}"></rich-text></view>

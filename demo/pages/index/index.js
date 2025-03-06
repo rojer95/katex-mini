@@ -1,5 +1,5 @@
 // index.js
-import parse from "@rojer/katex-mini";
+import parse, { renderMathInText } from "@rojer/katex-mini";
 
 Page({
   data: {
@@ -1387,6 +1387,9 @@ Page({
 \\begin{Bmatrix} 1 & 0 \\\\ 0 & -1 \\end{Bmatrix}\\\\
 \\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}\\quad
 \\begin{Vmatrix} i & 0 \\\\ 0 & -i \\end{Vmatrix}`,
+    latexAutoRender:
+      "这是一个行内公式 $ f(x) = sum_{n=0}^{infty} \\frac{f^{(n)}(a)}{n!} (x - a)^n $ ，这是一个行间的公式 $$ \\int_a^b f(x) , dx = F(b) - F(a) $$ \n这是新起一行的文字",
+    latexAutoRenderNodes: [],
   },
 
   onShow() {
@@ -1396,6 +1399,12 @@ Page({
   onInput: function (e) {
     this.setData({
       latex: e.detail.value,
+    });
+  },
+
+  onInputAutoRender: function (e) {
+    this.setData({
+      latexAutoRender: e.detail.value,
     });
   },
 
@@ -1427,10 +1436,30 @@ Page({
         ],
       });
     }
-  },
-  goDslate: function () {
-    wx.navigateTo({
-      url: "/pages/dslate/index",
-    });
+
+    try {
+      const autoRenderNodes = renderMathInText(this.data.latexAutoRender, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          {
+            left: "\\begin{equation}",
+            right: "\\end{equation}",
+            display: true,
+          },
+          { left: "\\begin{align}", right: "\\end{align}", display: true },
+          { left: "\\begin{alignat}", right: "\\end{alignat}", display: true },
+          { left: "\\begin{gather}", right: "\\end{gather}", display: true },
+          { left: "\\begin{CD}", right: "\\end{CD}", display: true },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+      });
+      console.log("autoRenderNodes", autoRenderNodes);
+
+      this.setData({
+        latexAutoRenderNodes: autoRenderNodes,
+      });
+    } catch (error) {}
   },
 });

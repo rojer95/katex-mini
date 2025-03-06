@@ -2,10 +2,8 @@
 # yarn lockfile v1
 
 
-"@rojer/katex-mini@^1.2.1":
+"@rojer/katex-mini@../":
   version "1.2.1"
-  resolved "https://registry.npmmirror.com/@rojer/katex-mini/-/katex-mini-1.2.1.tgz#5b80344592080b38074032bcfcef25bf5cc4fcb3"
-  integrity sha512-d9k4410pima6464CjlOuQdMLXmYyOiyvRMdvUEaTmWkU2gmKJQq+KE5biD6XonJB/IT0Rej2iC0HFx2ywP3cew==
 
 commander@^8.3.0:
   version "8.3.0"

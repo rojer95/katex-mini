@@ -38,6 +38,9 @@ var config = {
     new MiniCssExtractPlugin({
       filename: "index.wxss", // 打包后从js文件中提取出来的css文件名称
     }),
+    new MiniCssExtractPlugin({
+      filename: "index.css", // 打包后从js文件中提取出来的css文件名称
+    }),
   ],
 };
 

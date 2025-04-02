@@ -1,12 +1,12 @@
 {
   "name": "@rojer/katex-mini",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "katex for miniprogram",
   "main": "dist/index.js",
   "miniprogram": "dist",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && tsc && webpack --mode=none"
+    "build": "tsc && webpack --mode=none"
   },
   "author": "rojer",
   "license": "ISC",

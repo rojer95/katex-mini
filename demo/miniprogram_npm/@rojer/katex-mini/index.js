@@ -1,1 +1,201 @@
-!function(e,t){if("object"==typeof exports&&"object"==typeof module)module.exports=t(require("katex"));else if("function"==typeof define&&define.amd)define(["katex"],t);else{var r="object"==typeof exports?t(require("katex")):t(e.katex);for(var n in r)("object"==typeof exports?exports:e)[n]=r[n]}}("undefined"!=typeof self?self:this,(function(e){return function(e){var t={};function r(n){if(t[n])return t[n].exports;var a=t[n]={i:n,l:!1,exports:{}};return e[n].call(a.exports,a,a.exports,r),a.l=!0,a.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var a in e)r.d(n,a,function(t){return e[t]}.bind(null,a));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=0)}([function(e,t,r){"use strict";var n=this&&this.__createBinding||(Object.create?function(e,t,r,n){void 0===n&&(n=r),Object.defineProperty(e,n,{enumerable:!0,get:function(){return t[r]}})}:function(e,t,r,n){void 0===n&&(n=r),e[n]=t[r]}),a=this&&this.__exportStar||function(e,t){for(var r in e)"default"===r||Object.prototype.hasOwnProperty.call(t,r)||n(t,e,r)};Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0,r(1);var i=r(2);Object.defineProperty(t,"default",{enumerable:!0,get:function(){return i.parseLatex}}),a(r(2),t),a(r(4),t)},function(e,t,r){},function(e,t,r){"use strict";var n=this&&this.__assign||function(){return(n=Object.assign||function(e){for(var t,r=1,n=arguments.length;r<n;r++)for(var a in t=arguments[r])Object.prototype.hasOwnProperty.call(t,a)&&(e[a]=t[a]);return e}).apply(this,arguments)},a=this&&this.__rest||function(e,t){var r={};for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&t.indexOf(n)<0&&(r[n]=e[n]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols){var a=0;for(n=Object.getOwnPropertySymbols(e);a<n.length;a++)t.indexOf(n[a])<0&&Object.prototype.propertyIsEnumerable.call(e,n[a])&&(r[n[a]]=e[n[a]])}return r},i=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(t,"__esModule",{value:!0}),t.parseLatex=t.createClass=void 0;var o=i(r(3)),l=/([A-Z])/g,s={"&":"&amp;",">":"&gt;","<":"&lt;",'"':"&quot;","'":"&#x27;"},u=/[&><"']/g;function c(e){return String(e).replace(u,(function(e){return s[e]}))}var f=function(e){return"data:image/svg+xml,"+encodeURIComponent(e.replace(/\s+/g," "))};t.createClass=function(e){var t;return null!==(t=null==e?void 0:e.filter((function(e){return e})).join(" "))&&void 0!==t?t:""};var p=function(e,r){return e.map((function(e){var n,a=r;(null===(n=null==e?void 0:e.style)||void 0===n?void 0:n.color)&&(a=e.style.color);var i=void 0;e instanceof o.default.__domTree.Span&&(i="span"),e instanceof o.default.__domTree.Anchor&&(i="anchor"),e instanceof o.default.__domTree.LineNode&&(i="line"),e instanceof o.default.__domTree.PathNode&&(i="path"),e instanceof o.default.__domTree.SvgNode&&(i="svg",a&&(e.attributes.fill=a)),e instanceof o.default.__domTree.SymbolNode&&(i="text");var s=e.children&&e.children.length>0?p(e.children,a):[];return i?function(e,r,n){var a=!1;r.classes&&r.classes.length>0&&(a=!0);var i,o=c((0,t.createClass)(r.classes)),s="";for(var u in"text"===e&&r.italic>0&&(s+="margin-right:"+r.italic+"em;"),r.style)r.style.hasOwnProperty(u)&&(s+="".concat((i=u,i.replace(l,"-$1").toLowerCase()),":").concat(r.style[u],";"));s&&(a=!0);var p={};for(var d in r.attributes)r.attributes.hasOwnProperty(d)&&(p[d]=c(r.attributes[d]));if("span"===e)return{name:"span",attrs:{class:o+" katex-span",style:s},children:n};if("img"===e)return{name:"img",attrs:{class:o+" katex-img",style:s},children:n};if("text"===e){var h=c(r.text);return a?{name:"span",attrs:{class:o,style:s},children:[{type:"text",text:h}]}:{type:"text",text:h}}if("svg"===e){var y=r.toMarkup();return{name:"img",attrs:{src:f(y),class:"katex-svg"}}}return null}(i,e,s):s})).reduce((function(e,t){return Array.isArray(t)?e.push.apply(e,t):e.push(t),e}),[]).filter((function(e){return!!e}))};t.parseLatex=function(e,t){void 0===t&&(t={});var r=t||{},i=r.throwError,l=a(r,["throwError"]);try{var s=o.default.__renderToDomTree(e,n(n({},l),{output:"html"}));return p([s])}catch(e){if(i)throw e;return[{name:"span",attrs:{style:"color:red;"},children:[{type:"text",text:e.message}]}]}}},function(t,r){t.exports=e},function(e,t,r){"use strict";var n=this&&this.__assign||function(){return(n=Object.assign||function(e){for(var t,r=1,n=arguments.length;r<n;r++)for(var a in t=arguments[r])Object.prototype.hasOwnProperty.call(t,a)&&(e[a]=t[a]);return e}).apply(this,arguments)},a=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(t,"__esModule",{value:!0}),t.renderMathInText=void 0;var i=a(r(3)),o=a(r(5)),l=r(2);t.renderMathInText=function(e,t){var r,a,s=(0,o.default)(e,null!==(r=null==t?void 0:t.delimiters)&&void 0!==r?r:[{left:"$$",right:"$$",display:!0},{left:"\\(",right:"\\)",display:!1},{left:"\\begin{equation}",right:"\\end{equation}",display:!0},{left:"\\begin{align}",right:"\\end{align}",display:!0},{left:"\\begin{alignat}",right:"\\end{alignat}",display:!0},{left:"\\begin{gather}",right:"\\end{gather}",display:!0},{left:"\\begin{CD}",right:"\\end{CD}",display:!0},{left:"\\[",right:"\\]",display:!0}]);if(1===s.length&&"text"===s[0].type)return s[0].data;for(var u=[],c=0;c<s.length;c++)if("text"===s[c].type)u.push({type:"node",name:"span",attrs:{style:"white-space: pre-wrap;"},children:[{type:"text",text:s[c].data}]});else{var f=n({},t),p=s[c].data;f.displayMode=s[c].display;try{f.preProcess&&(p=f.preProcess(p));var d=(0,l.parseLatex)(p,f);u.push.apply(u,d)}catch(e){if(!(e instanceof i.default.ParseError))throw e;null===(a=t.errorCallback)||void 0===a||a.call(t,"KaTeX auto-render: Failed to parse `"+s[c].data+"` with ",e),u.push(s[c].rawData);continue}}return u}},function(e,t,r){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e,t,r){for(var n=r,a=0,i=e.length;n<t.length;){var o=t[n];if(a<=0&&t.slice(n,n+i)===e)return n;"\\"===o?n++:"{"===o?a++:"}"===o&&a--,n++}return-1},a=/^\\begin{/;t.default=function(e,t){for(var r,i=[],o=new RegExp("("+t.map((function(e){return e.left.replace(/[-/\\^$*+?.()|[\]{}]/g,"\\$&")})).join("|")+")");-1!==(r=e.search(o));){r>0&&(i.push({type:"text",data:e.slice(0,r)}),e=e.slice(r));var l=t.findIndex((function(t){return e.startsWith(t.left)}));if(-1===(r=n(t[l].right,e,t[l].left.length)))break;var s=e.slice(0,r+t[l].right.length),u=a.test(s)?s:e.slice(t[l].left.length,r);i.push({type:"math",data:u,rawData:s,display:t[l].display}),e=e.slice(r+t[l].right.length)}return""!==e&&i.push({type:"text",data:e}),i}}])}));
+import l from "katex";
+const g = /([A-Z])/g, o = function(r) {
+  return r.replace(g, "-$1").toLowerCase();
+}, p = {
+  "&": "&amp;",
+  ">": "&gt;",
+  "<": "&lt;",
+  '"': "&quot;",
+  "'": "&#x27;"
+}, d = /[&><"']/g;
+function h(r) {
+  return String(r).replace(d, (t) => p[t]);
+}
+const y = (r) => "data:image/svg+xml," + encodeURIComponent(r.replace(/\s+/g, " ")), x = (r, t, e) => {
+  let n = !1;
+  t.classes && t.classes.length > 0 && (n = !0);
+  const i = h(b(t.classes));
+  let a = "";
+  r === "text" && t.italic > 0 && (a += "margin-right:" + t.italic + "em;");
+  for (const s in t.style)
+    t.style.hasOwnProperty(s) && (a += `${o(s)}:${t.style[s]};`);
+  a && (n = !0);
+  for (const s in t.attributes)
+    t.attributes.hasOwnProperty(s) && h(t.attributes[s]);
+  if (r === "span")
+    return {
+      name: "span",
+      attrs: {
+        class: i + " katex-span",
+        style: a
+      },
+      children: e
+    };
+  if (r === "img")
+    return {
+      name: "img",
+      attrs: {
+        class: i + " katex-img",
+        style: a
+      },
+      children: e
+    };
+  if (r === "text") {
+    const s = h(t.text);
+    return n ? {
+      name: "span",
+      attrs: {
+        class: i,
+        style: a
+      },
+      children: [
+        {
+          type: "text",
+          text: s
+        }
+      ]
+    } : {
+      type: "text",
+      text: s
+    };
+  }
+  if (r === "svg") {
+    const s = t.toMarkup();
+    return {
+      name: "img",
+      attrs: {
+        src: y(s),
+        class: "katex-svg"
+      }
+    };
+  }
+  return null;
+}, b = function(r) {
+  return (r == null ? void 0 : r.filter((t) => t).join(" ")) ?? "";
+}, u = (r, t) => r.map((e) => {
+  var s;
+  let n = t;
+  (s = e == null ? void 0 : e.style) != null && s.color && (n = e.style.color);
+  let i;
+  e instanceof l.__domTree.Span && (i = "span"), e instanceof l.__domTree.Anchor && (i = "anchor"), e instanceof l.__domTree.LineNode && (i = "line"), e instanceof l.__domTree.PathNode && (i = "path"), e instanceof l.__domTree.SvgNode && (i = "svg", n && (e.attributes.fill = n)), e instanceof l.__domTree.SymbolNode && (i = "text");
+  const a = e.children && e.children.length > 0 ? u(e.children, n) : [];
+  return i ? x(i, e, a) : a;
+}).reduce((e, n) => (Array.isArray(n) ? e.push(...n) : e.push(n), e), []).filter((e) => !!e), _ = (r, t = {}) => {
+  const { throwError: e, ...n } = t || {};
+  try {
+    const i = l.__renderToDomTree(r, {
+      ...n,
+      output: "html"
+    });
+    return u([i]);
+  } catch (i) {
+    if (e) throw i;
+    return [
+      {
+        name: "span",
+        attrs: {
+          style: "color:red;"
+        },
+        children: [{ type: "text", text: i.message }]
+      }
+    ];
+  }
+}, w = function(r, t, e) {
+  let n = e, i = 0;
+  const a = r.length;
+  for (; n < t.length; ) {
+    const s = t[n];
+    if (i <= 0 && t.slice(n, n + a) === r)
+      return n;
+    s === "\\" ? n++ : s === "{" ? i++ : s === "}" && i--, n++;
+  }
+  return -1;
+}, k = function(r) {
+  return r.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+}, E = /^\\begin{/, T = function(r, t) {
+  let e;
+  const n = [], i = new RegExp(
+    "(" + t.map((a) => k(a.left)).join("|") + ")"
+  );
+  for (; e = r.search(i), e !== -1; ) {
+    e > 0 && (n.push({
+      type: "text",
+      data: r.slice(0, e)
+    }), r = r.slice(e));
+    const a = t.findIndex((c) => r.startsWith(c.left));
+    if (e = w(t[a].right, r, t[a].left.length), e === -1)
+      break;
+    const s = r.slice(0, e + t[a].right.length), f = E.test(s) ? s : r.slice(t[a].left.length, e);
+    n.push({
+      type: "math",
+      data: f,
+      rawData: s,
+      display: t[a].display
+    }), r = r.slice(e + t[a].right.length);
+  }
+  return r !== "" && n.push({
+    type: "text",
+    data: r
+  }), n;
+}, P = function(r, t) {
+  var i;
+  const e = T(
+    r,
+    (t == null ? void 0 : t.delimiters) ?? [
+      { left: "$$", right: "$$", display: !0 },
+      { left: "\\(", right: "\\)", display: !1 },
+      { left: "\\begin{equation}", right: "\\end{equation}", display: !0 },
+      { left: "\\begin{align}", right: "\\end{align}", display: !0 },
+      { left: "\\begin{alignat}", right: "\\end{alignat}", display: !0 },
+      { left: "\\begin{gather}", right: "\\end{gather}", display: !0 },
+      { left: "\\begin{CD}", right: "\\end{CD}", display: !0 },
+      { left: "\\[", right: "\\]", display: !0 }
+    ]
+  );
+  if (e.length === 1 && e[0].type === "text")
+    return e[0].data;
+  const n = [];
+  for (let a = 0; a < e.length; a++)
+    if (e[a].type === "text")
+      n.push({
+        type: "node",
+        name: "span",
+        attrs: {
+          style: "white-space: pre-wrap;"
+        },
+        children: [
+          {
+            type: "text",
+            text: e[a].data
+          }
+        ]
+      });
+    else {
+      const s = {
+        ...t
+      };
+      let f = e[a].data;
+      s.displayMode = e[a].display;
+      try {
+        s.preProcess && (f = s.preProcess(f));
+        const c = _(f, s);
+        n.push(...c);
+      } catch (c) {
+        if (!(c instanceof l.ParseError))
+          throw c;
+        (i = t.errorCallback) == null || i.call(
+          t,
+          "KaTeX auto-render: Failed to parse `" + e[a].data + "` with ",
+          c
+        ), n.push(e[a].rawData);
+        continue;
+      }
+    }
+  return n;
+};
+export {
+  b as createClass,
+  _ as default,
+  _ as parseLatex,
+  P as renderMathInText
+};

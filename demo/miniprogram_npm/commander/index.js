@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1749547720800, function(require, module, exports) {
+__DEFINE__(1756197578164, function(require, module, exports) {
 const { Argument } = require('./lib/argument.js');
 const { Command } = require('./lib/command.js');
 const { CommanderError, InvalidArgumentError } = require('./lib/error.js');
@@ -33,8 +33,8 @@ exports.InvalidArgumentError = InvalidArgumentError;
 exports.InvalidOptionArgumentError = InvalidArgumentError; // Deprecated
 exports.Option = Option;
 
-}, function(modId) {var map = {"./lib/argument.js":1749547720801,"./lib/command.js":1749547720803,"./lib/error.js":1749547720802,"./lib/help.js":1749547720804,"./lib/option.js":1749547720805}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1749547720801, function(require, module, exports) {
+}, function(modId) {var map = {"./lib/argument.js":1756197578165,"./lib/command.js":1756197578167,"./lib/error.js":1756197578166,"./lib/help.js":1756197578168,"./lib/option.js":1756197578169}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1756197578165, function(require, module, exports) {
 const { InvalidArgumentError } = require('./error.js');
 
 // @ts-check
@@ -183,8 +183,8 @@ function humanReadableArgName(arg) {
 exports.Argument = Argument;
 exports.humanReadableArgName = humanReadableArgName;
 
-}, function(modId) { var map = {"./error.js":1749547720802}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1749547720802, function(require, module, exports) {
+}, function(modId) { var map = {"./error.js":1756197578166}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1756197578166, function(require, module, exports) {
 // @ts-check
 
 /**
@@ -232,7 +232,7 @@ exports.CommanderError = CommanderError;
 exports.InvalidArgumentError = InvalidArgumentError;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1749547720803, function(require, module, exports) {
+__DEFINE__(1756197578167, function(require, module, exports) {
 const EventEmitter = require('events').EventEmitter;
 const childProcess = require('child_process');
 const path = require('path');
@@ -2178,8 +2178,8 @@ function getCommandAndParents(startCommand) {
 
 exports.Command = Command;
 
-}, function(modId) { var map = {"./argument.js":1749547720801,"./error.js":1749547720802,"./help.js":1749547720804,"./option.js":1749547720805,"./suggestSimilar":1749547720806}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1749547720804, function(require, module, exports) {
+}, function(modId) { var map = {"./argument.js":1756197578165,"./error.js":1756197578166,"./help.js":1756197578168,"./option.js":1756197578169,"./suggestSimilar":1756197578170}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1756197578168, function(require, module, exports) {
 const { humanReadableArgName } = require('./argument.js');
 
 /**
@@ -2577,8 +2577,8 @@ class Help {
 
 exports.Help = Help;
 
-}, function(modId) { var map = {"./argument.js":1749547720801}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1749547720805, function(require, module, exports) {
+}, function(modId) { var map = {"./argument.js":1756197578165}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1756197578169, function(require, module, exports) {
 const { InvalidArgumentError } = require('./error.js');
 
 // @ts-check
@@ -2788,8 +2788,8 @@ function splitOptionFlags(flags) {
 exports.Option = Option;
 exports.splitOptionFlags = splitOptionFlags;
 
-}, function(modId) { var map = {"./error.js":1749547720802}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1749547720806, function(require, module, exports) {
+}, function(modId) { var map = {"./error.js":1756197578166}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1756197578170, function(require, module, exports) {
 const maxDistance = 3;
 
 function editDistance(a, b) {
@@ -2892,7 +2892,7 @@ function suggestSimilar(word, candidates) {
 exports.suggestSimilar = suggestSimilar;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1749547720800);
+return __REQUIRE__(1756197578164);
 })()
 //miniprogram-npm-outsideDeps=["events","child_process","path","fs"]
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,11 @@
 import { Delimiters } from "./types";
 
 /* eslint no-constant-condition:0 */
-const findEndOfMath = function (delimiter, text, startIndex) {
+const findEndOfMath = function (
+  delimiter: string,
+  text: string,
+  startIndex: number
+) {
   // Adapted from
   // https://github.com/Khan/perseus/blob/master/src/perseus-markdown.jsx
   let index = startIndex;
@@ -31,7 +35,7 @@ const findEndOfMath = function (delimiter, text, startIndex) {
   return -1;
 };
 
-const escapeRegex = function (string) {
+const escapeRegex = function (string: string) {
   return string.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 };
 

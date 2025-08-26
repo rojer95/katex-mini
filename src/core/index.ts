@@ -13,11 +13,11 @@ type RichNode = {
 // hyphenate and escape adapted from Facebook's React under Apache 2 license
 
 const uppercase = /([A-Z])/g;
-const hyphenate = function (str) {
+const hyphenate = function (str: string) {
   return str.replace(uppercase, "-$1").toLowerCase();
 };
 
-const ESCAPE_LOOKUP = {
+const ESCAPE_LOOKUP: Record<string, string> = {
   "&": "&amp;",
   ">": "&gt;",
   "<": "&lt;",
@@ -29,7 +29,7 @@ const ESCAPE_REGEX = /[&><"']/g;
 /**
  * Escapes text to prevent scripting attacks.
  */
-function escape(text) {
+function escape(text: string) {
   return String(text).replace(ESCAPE_REGEX, (match) => ESCAPE_LOOKUP[match]);
 }
 
@@ -66,7 +66,7 @@ const katex2richnode = (
     needsSpan = true;
   }
 
-  const attrs = {};
+  const attrs: Record<string, string> = {};
   for (const attr in dom.attributes) {
     if (dom.attributes.hasOwnProperty(attr)) {
       attrs[attr] = escape(dom.attributes[attr]);
@@ -137,26 +137,26 @@ const katex2richnode = (
  * Create an HTML className based on a list of classes. In addition to joining
  * with spaces, we also remove empty classes.
  */
-export const createClass = function (classes) {
+export const createClass = function (classes: string[]) {
   return classes?.filter((cls) => cls).join(" ") ?? "";
 };
 
-const toMarkup = (doms, color?: string) => {
+const toMarkup = (doms: any[], color?: string): RichNode[] => {
   return doms
-    .map((dom) => {
+    .map((dom: any) => {
       let domColor: string | undefined = color;
       if (dom?.style?.color) domColor = dom.style.color;
 
       let type: NodeType | undefined = undefined;
-      if (dom instanceof katex.__domTree.Span) type = "span";
-      if (dom instanceof katex.__domTree.Anchor) type = "anchor";
-      if (dom instanceof katex.__domTree.LineNode) type = "line";
-      if (dom instanceof katex.__domTree.PathNode) type = "path";
-      if (dom instanceof katex.__domTree.SvgNode) {
+      if (dom instanceof (katex as any).__domTree.Span) type = "span";
+      if (dom instanceof (katex as any).__domTree.Anchor) type = "anchor";
+      if (dom instanceof (katex as any).__domTree.LineNode) type = "line";
+      if (dom instanceof (katex as any).__domTree.PathNode) type = "path";
+      if (dom instanceof (katex as any).__domTree.SvgNode) {
         type = "svg";
         if (domColor) dom.attributes.fill = domColor;
       }
-      if (dom instanceof katex.__domTree.SymbolNode) type = "text";
+      if (dom instanceof (katex as any).__domTree.SymbolNode) type = "text";
 
       const children =
         dom.children && dom.children.length > 0
@@ -165,13 +165,13 @@ const toMarkup = (doms, color?: string) => {
       if (!type) return children;
       return katex2richnode(type, dom, children);
     })
-    .reduce((pre, item) => {
+    .filter((i) => !!i)
+    .reduce<RichNode[]>((pre, item) => {
+      if (!item) return [...pre];
       if (Array.isArray(item)) {
-        pre.push(...item);
-      } else {
-        pre.push(item);
+        return [...pre, ...item];
       }
-      return pre;
+      return [...pre, item];
     }, [])
     .filter((i) => !!i);
 };
@@ -179,7 +179,7 @@ const toMarkup = (doms, color?: string) => {
 export const parseLatex = (latex: string, option: any = {}) => {
   const { throwError, ...restOption } = option || {};
   try {
-    const tree = katex.__renderToDomTree(latex, {
+    const tree = (katex as any).__renderToDomTree(latex, {
       ...restOption,
       output: "html",
     });

@@ -80,7 +80,7 @@ const y = (r) => "data:image/svg+xml," + encodeURIComponent(r.replace(/\s+/g, " 
   e instanceof l.__domTree.Span && (i = "span"), e instanceof l.__domTree.Anchor && (i = "anchor"), e instanceof l.__domTree.LineNode && (i = "line"), e instanceof l.__domTree.PathNode && (i = "path"), e instanceof l.__domTree.SvgNode && (i = "svg", n && (e.attributes.fill = n)), e instanceof l.__domTree.SymbolNode && (i = "text");
   const a = e.children && e.children.length > 0 ? u(e.children, n) : [];
   return i ? x(i, e, a) : a;
-}).reduce((e, n) => (Array.isArray(n) ? e.push(...n) : e.push(n), e), []).filter((e) => !!e), _ = (r, t = {}) => {
+}).filter((e) => !!e).reduce((e, n) => n ? Array.isArray(n) ? [...e, ...n] : [...e, n] : [...e], []).filter((e) => !!e), _ = (r, t = {}) => {
   const { throwError: e, ...n } = t || {};
   try {
     const i = l.__renderToDomTree(r, {

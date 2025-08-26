@@ -8,7 +8,7 @@ export const renderMathInText = function (
   optionsCopy: {
     delimiters: Delimiters;
     preProcess?: (math: string) => string;
-    errorCallback?: (msg: string, e) => void;
+    errorCallback?: (msg: string, e: any) => void;
   }
 ) {
   const data = splitAtDelimiters(
